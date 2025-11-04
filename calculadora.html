@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      color: #333;
+    }
+    #resultado {
+      margin-top: 20px;
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #006400;
+    }
+  </style>
+</head>
+<body>
+  <h1>Calculadora</h1>
+  <button onclick="calcular()">Iniciar calculadora</button>
+  <div id="resultado"></div>
+
+  <script>
+    function calcular() {
+      let num1 = parseFloat(prompt("Ingrese el primer número:"));
+      let num2 = parseFloat(prompt("Ingrese el segundo número:"));
+
+      let opcion = parseInt(prompt(
+        "Seleccione una opción:\n" +
+        "1. Suma\n" +
+        "2. Resta\n" +
+        "3. Multiplicación\n" +
+        "4. División\n" +
+        "5. Módulo\n" +
+        "6. Potencia\n" +
+        "7. Raíz cuadrada del primer número"
+      ));
+
+      let resultadoTexto = "";
+
+      switch (opcion) {
+        case 1:
+          resultadoTexto = "Suma: " + (num1 + num2);
+          break;
+
+        case 2:
+          resultadoTexto = "Resta: " + (num1 - num2);
+          break;
+
+        case 3:
+          resultadoTexto = "Multiplicación: " + (num1 * num2);
+          break;
+
+        case 4:
+          if (num2 === 0) {
+            resultadoTexto = "Error: no se puede dividir por cero.";
+          } else {
+            resultadoTexto = "División: " + (num1 / num2);
+          }
+          break;
+
+        case 5:
+          resultadoTexto = "Módulo: " + (num1 % num2);
+          break;
+
+        case 6:
+          let potencia = 1;
+          for (let i = 0; i < num2; i++) {
+            potencia *= num1;
+          }
+          resultadoTexto = "Potencia: " + potencia;
+          break;
+
+        case 7:
+          if (num1 < 0) {
+            resultadoTexto = "Error: no se puede obtener raíz de número negativo.";
+          } else {
+            let raiz = num1;
+            let precision = 0.000001;
+            let mejorAprox;
+            do {
+              mejorAprox = raiz;
+              raiz = (raiz + num1 / raiz) / 2;
+            } while (raiz - mejorAprox > precision || mejorAprox - raiz > precision);
+            resultadoTexto = "Raíz cuadrada aproximada de " + num1 + " = " + raiz;
+          }
+          break;
+
+        default:
+          resultadoTexto = "Opción no válida. Usa un número del 1 al 7.";
+      }
+
+      document.getElementById("resultado").textContent = resultadoTexto;
+      alert(resultadoTexto);
+    }
+  </script>
+</body>
+</html>
